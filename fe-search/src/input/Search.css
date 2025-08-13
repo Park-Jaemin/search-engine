@@ -1,0 +1,36 @@
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+.search-result-item {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+    text-align: left;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.search-status {
+    color: #666;
+    margin-top: 10px;
+}
+
+.search-error {
+    color: #ff4444;
+    margin-top: 10px;
+}
