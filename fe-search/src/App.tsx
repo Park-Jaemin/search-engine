@@ -53,6 +53,7 @@ function App() {
                         searchParams={searchParams}
                         currentPage={currentPage}
                         onUpdateTotalPages={updateTotalPages}
+                        delay={500}
                     />
                 </div>
                 <div className="search-section">
@@ -61,6 +62,7 @@ function App() {
                         endPoint="el"
                         searchParams={searchParams}
                         currentPage={currentPage}
+                        delay={100}
                     />
                 </div>
             </div>
