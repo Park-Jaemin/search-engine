@@ -1,48 +1,74 @@
 import './App.css';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import {SearchParams, SearchSection} from "./input/SearchSection";
 import {SearchBox} from "./input/SearchBox";
-import {Customer, SearchResults} from "./input/SearchResults";
-import {search} from "./input/SearchApi";
-
+import {Pagination} from "./input/Pagination";
 
 function App() {
-    const [query, setQuery] = useState("");
-    const [customers, setCustomers] = useState<Customer[]>([]);
-    const [searching, setSearching] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const [searchParams, setSearchParams] = useState<SearchParams>({});
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
 
-    useEffect(() => {
-        if (!query.trim()) {
-            setCustomers([]);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setInputValue(value);
+        setCurrentPage(0); // 검색어 변경 시 페이지 초기화
+
+        if (/^\d+$/.test(value)) {
+            setSearchParams({phone: value});
             return;
         }
 
-        const fetchData = async () => {
-            setSearching(true);
-            try {
-                const result = await search(query);
-                // result가 JSON 객체라고 가정
-                // name 필드를 꺼내 배열 형태로 변환
-                setCustomers([{name: result.name}]);
-            } catch (error) {
-                console.error('검색 중 오류 발생:', error);
-                setCustomers([]);
-            } finally {
-                setSearching(false);
-            }
-        };
+        if (value.includes('.')) {
+            const [nameParam, phoneParam] = value.split('.');
+            setSearchParams({
+                name: nameParam.trim(),
+                phone: phoneParam.trim()
+            });
+            return;
+        }
 
-        const debounceTimeout = setTimeout(() => {
-            fetchData();
-        }, 500); // 타이핑 후 500ms 후에 검색 실행
+        setSearchParams({name: value});
+    };
 
-        return () => clearTimeout(debounceTimeout);
-    }, [query]);
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+    };
 
+    const updateTotalPages = (pages: number) => {
+        setTotalPages(pages);
+    };
 
     return (
-        <div className="search-container">
-            <SearchBox value={query} onChange={(e) => setQuery(e.target.value)}/>
-            <SearchResults customers={customers} searching={searching}/>
+        <div className="app-container">
+            <div className="search-box-wrapper">
+                <SearchBox value={inputValue} onChange={handleChange}/>
+            </div>
+            <div className="results-container">
+                <div className="search-section">
+                    <h2 className="search-title">DB LIKE 검색</h2>
+                    <SearchSection
+                        endPoint="db"
+                        searchParams={searchParams}
+                        currentPage={currentPage}
+                        onUpdateTotalPages={updateTotalPages}
+                    />
+                </div>
+                <div className="search-section">
+                    <h2 className="search-title">Elastic Search 검색</h2>
+                    <SearchSection
+                        endPoint="el"
+                        searchParams={searchParams}
+                        currentPage={currentPage}
+                    />
+                </div>
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
 }

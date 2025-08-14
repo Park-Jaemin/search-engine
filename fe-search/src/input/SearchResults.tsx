@@ -1,31 +1,43 @@
+import './Search.css';
+import {Pagination} from "./Pagination";
+
 interface Customer {
     name: string;
+    phone: string;
 }
 
 interface SearchResultsProps {
-    customers: Customer[];
-    searching: boolean;
+    contents: Customer[];
 }
 
-export function SearchResults({customers, searching}: SearchResultsProps) {
+export function SearchResults({contents}: SearchResultsProps) {
     return (
-        <article aria-busy={searching}>
-            {searching ? (
-                "잠시만 기다려주세요. 고객을 검색하고 있습니다."
-            ) : (
-                <>
-                    <header>총 {customers.length}개의 고객이 검색되었습니다.</header>
-                    <ul>
-                        {customers.map(({name}, index) => (
-                            <li key={index}>
-                                {name}
+        <div className="search-results-container">
+            <div className="search-content">
+                {contents.length === 0 ? (
+                    <div className="empty-results">
+                        검색 결과가 없습니다
+                    </div>
+                ) : (
+                    <ul className="results-list">
+                        {contents.map((item, index) => (
+                            <li key={index} className="result-item">
+                                <div className="patient-info">
+                                    <div className="patient-main-info">
+                                        <span className="patient-name">{item.name}</span>
+                                        <span className="patient-phone">
+                                            <span className="info-icon">📞</span>
+                                            {item.phone}
+                                        </span>
+                                    </div>
+                                </div>
                             </li>
                         ))}
                     </ul>
-                </>
-            )}
-        </article>
+                )}
+            </div>
+        </div>
     );
 }
 
-export type {Customer};
+export type {Customer, SearchResultsProps};

@@ -1,3 +1,17 @@
+/* App.css */
+#root {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
 .App {
     text-align: center;
 }
@@ -13,12 +27,78 @@
     color: white;
 }
 
-.search-container {
+.app-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 40px;
+    width: 100%;
+}
+
+.search-box-wrapper {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.results-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.search-section {
+    width: 400px; /* 각 섹션의 너비 고정 */
+}
+
+.search-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #495057;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.search-box-container {
+    width: 100%;
+}
+
+.search-box {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: #339af0;
+    box-shadow: 0 0 0 3px rgba(51, 154, 240, 0.2);
+}
+
+.search-box::placeholder {
+    color: #adb5bd;
+}
+
+.search-box:hover {
+    border-color: #dee2e6;
+}
+
+.search-results-container {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
 }

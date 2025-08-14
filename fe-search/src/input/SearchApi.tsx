@@ -1,12 +1,10 @@
-import {Customer} from "./SearchResults";
-
-export async function search(query: string): Promise<Customer> {
-    return fetch(`http://localhost:8080/search?query=${encodeURIComponent(query)}`, {
-        method: 'GET',
-    })
-        .then(response => response.json())
-        .catch(error => {
-            console.error('Error:', error);
-            throw error;
-        });
+export const search = async (params: URLSearchParams, page: number, endpoint: string) => {
+    try {
+        return await (await fetch(`http://localhost:8080/${endpoint}?${params.toString()}`, {
+            method: 'GET',
+        })).json();
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
 }
