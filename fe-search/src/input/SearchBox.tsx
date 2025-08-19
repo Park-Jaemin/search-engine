@@ -3,18 +3,20 @@ import React from 'react';
 interface SearchBoxProps {
     value?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    placeholder?: string;
+    searchLabel?: string;
 }
 
-export function SearchBox({value = '', onChange}: SearchBoxProps) {
+export function SearchBox({value = '', onChange, placeholder, searchLabel}: SearchBoxProps) {
     return (
         <div className="search-box-container">
-            <label className="search-label">고객 검색</label>
+            <label className="search-label">{searchLabel}</label>
             <input
                 type="text"
                 className="search-box"
                 value={value}
                 onChange={onChange}
-                placeholder="이름을 입력하세요"
+                placeholder={placeholder}
                 autoComplete="off"
             />
             <div className="search-hint">

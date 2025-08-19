@@ -1,5 +1,5 @@
 import './Search.css';
-import {Pagination} from "./Pagination";
+import React from "react";
 
 interface Customer {
     name: string;
@@ -8,9 +8,10 @@ interface Customer {
 
 interface SearchResultsProps {
     contents: Customer[];
+    duration?: number;
 }
 
-export function SearchResults({contents}: SearchResultsProps) {
+export function SearchResults({contents, duration}: SearchResultsProps) {
     return (
         <div className="search-results-container">
             <div className="search-content">
@@ -35,6 +36,7 @@ export function SearchResults({contents}: SearchResultsProps) {
                         ))}
                     </ul>
                 )}
+                <label className="search-label"> API 시간 : {duration}ms </label>
             </div>
         </div>
     );

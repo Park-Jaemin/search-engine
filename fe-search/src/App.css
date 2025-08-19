@@ -37,8 +37,13 @@ body {
 
 .search-box-wrapper {
     width: 100%;
-    max-width: 600px;
-    margin-bottom: 40px;
+    max-width: 850px; /* 전체 너비 제한 (필요시 조정) */
+    margin-bottom: 24px;
+    display: flex;
+    gap: 100px; /* 입력 간 간격 */
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-wrap: nowrap; /* 한 줄 유지 */
 }
 
 .results-container {
@@ -68,16 +73,11 @@ body {
 }
 
 .search-box-container {
-    width: 100%;
+    flex: 0 0 220px; /* 각 입력칸 고정 너비 (짧게) */
 }
 
 .search-box {
     width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    box-sizing: border-box;
 }
 
 .search-box:focus {
